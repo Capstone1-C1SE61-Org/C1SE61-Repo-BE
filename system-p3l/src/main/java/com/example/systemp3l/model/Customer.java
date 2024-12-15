@@ -26,7 +26,6 @@ public class Customer {
     private Boolean customerGender;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date dateOfBirth;
-    private String idCard;
     private String customerAddress;
     private String customerImg;
     private String customerTypeName;
@@ -45,15 +44,14 @@ public class Customer {
     private Set<Course> courses = new LinkedHashSet<>();
 
     public Customer(String customerCode, String customerName, String customerEmail, String customerPhone,
-                    Boolean customerGender, Date dateOfBirth, String idCard, String customerAddress,
-                    Boolean isEnable, Account account) {
+                    Boolean customerGender, Date dateOfBirth, String customerAddress, Boolean isEnable,
+                    Account account) {
         this.customerCode = customerCode;
         this.customerName = customerName;
         this.customerEmail = customerEmail;
         this.customerPhone = customerPhone;
         this.customerGender = customerGender;
         this.dateOfBirth = dateOfBirth;
-        this.idCard = idCard;
         this.customerAddress = customerAddress;
         this.isEnable = isEnable;
         this.account = account;
