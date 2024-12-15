@@ -23,7 +23,6 @@ public class Instructor {
     private Boolean instructorGender;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date dateOfBirth;
-    private String idCard;
     private String instructorAddress;
     private String instructorImg;
     private Boolean isEnable;
@@ -33,15 +32,14 @@ public class Instructor {
     private Account account;
 
     public Instructor(String instructorCode, String instructorName, String instructorEmail, String instructorPhone,
-                      Boolean instructorGender, Date dateOfBirth, String idCard, String instructorAddress,
-                      Boolean isEnable, Account account) {
+                      Boolean instructorGender, Date dateOfBirth, String instructorAddress, Boolean isEnable,
+                      Account account) {
         this.instructorCode = instructorCode;
         this.instructorName = instructorName;
         this.instructorEmail = instructorEmail;
         this.instructorPhone = instructorPhone;
         this.instructorGender = instructorGender;
         this.dateOfBirth = dateOfBirth;
-        this.idCard = idCard;
         this.instructorAddress = instructorAddress;
         this.isEnable = isEnable;
         this.account = account;
