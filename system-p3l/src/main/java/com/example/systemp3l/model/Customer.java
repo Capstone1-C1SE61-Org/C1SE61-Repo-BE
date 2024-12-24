@@ -28,7 +28,6 @@ public class Customer {
     private Date dateOfBirth;
     private String customerAddress;
     private String customerImg;
-    private String customerTypeName;
     private Boolean isEnable;
 
     @OneToOne(cascade = CascadeType.ALL)
