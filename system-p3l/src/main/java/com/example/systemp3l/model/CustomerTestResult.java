@@ -6,24 +6,20 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
+@Entity
 @Setter
 @Getter
 @RequiredArgsConstructor
-@Entity
-public class Lesson {
+public class CustomerTestResult {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer lessonId;
-    private String lessonName;
-    @Column(name = "lesson_content", length = 2000)
-    private String lessonContent;
-    @Column(name = "video", length = 2000)
-    private String video;
-    private String lessonDuration;
+    private Integer resultId;
+    private Integer score;
+    private Boolean isPassed;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "course_id")
-    private Course course;
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "test_id")
