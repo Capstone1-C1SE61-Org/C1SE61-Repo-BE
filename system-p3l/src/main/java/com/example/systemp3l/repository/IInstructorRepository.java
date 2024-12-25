@@ -24,4 +24,8 @@ public interface IInstructorRepository extends JpaRepository<Instructor, Integer
             "inner join account a on i.account_id = a.account_id " +
             "where (i.is_enable = true) and (a.is_enable = true) and (a.username = :username)", nativeQuery = true)
     Optional<Tuple> findUserDetailByUsername(@Param("username") String username);
+
+    @Query(value = "SELECT * FROM instructor i JOIN account a ON i.account_id = a.account_id WHERE a.username = ?1",
+            nativeQuery = true)
+    Instructor findByUsername(String username);
 }
