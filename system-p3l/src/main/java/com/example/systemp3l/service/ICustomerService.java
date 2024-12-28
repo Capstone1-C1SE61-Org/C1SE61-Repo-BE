@@ -9,4 +9,6 @@ public interface ICustomerService {
     Customer customerLimit();
 
     CustomerUserDetailDto findUserDetailByUsername(String username);
+
+    Customer findCustomerByUsername(String username);
 }

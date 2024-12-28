@@ -37,4 +37,9 @@ public class CustomerServiceImpl implements ICustomerService {
 
         return null;
     }
+
+    @Override
+    public Customer findCustomerByUsername(String username) {
+        return customerRepository.findCustomerByUsername(username);
+    }
 }
