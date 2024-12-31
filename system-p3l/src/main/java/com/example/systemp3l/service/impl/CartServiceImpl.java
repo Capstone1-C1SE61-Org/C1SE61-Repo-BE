@@ -13,6 +13,11 @@ public class CartServiceImpl implements ICartService {
     private ICartRepository cartRepository;
 
     @Override
+    public void save(Cart cart) {
+        cartRepository.save(cart);
+    }
+
+    @Override
     public Cart update(Cart cart) {
         Integer id = cart.getCartId();
         String name = cart.getReceiverName();
