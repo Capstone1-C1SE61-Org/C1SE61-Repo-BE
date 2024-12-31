@@ -4,13 +4,11 @@ import com.example.systemp3l.dto.request.LoginRequest;
 import com.example.systemp3l.dto.request.SignupRequest;
 import com.example.systemp3l.dto.response.JwtResponse;
 import com.example.systemp3l.dto.response.MessageResponse;
-import com.example.systemp3l.model.Account;
-import com.example.systemp3l.model.Customer;
-import com.example.systemp3l.model.Instructor;
-import com.example.systemp3l.model.Role;
+import com.example.systemp3l.model.*;
 import com.example.systemp3l.security.jwt.JwtUtility;
 import com.example.systemp3l.security.userprinciple.UserPrinciple;
 import com.example.systemp3l.service.IAccountService;
+import com.example.systemp3l.service.ICartService;
 import com.example.systemp3l.service.ICustomerService;
 import com.example.systemp3l.service.IInstructorService;
 import com.example.systemp3l.utils.ConverterMaxCode;
@@ -47,7 +45,7 @@ public class SecurityController {
     private ICustomerService customerService;
 
     @Autowired
-    private IInstructorService instructorService;
+    private ICartService cartService;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -93,48 +91,33 @@ public class SecurityController {
         account.setIsEnable(true);
         accountService.save(account);
 
+        Role role = new Role(2, "ROLE_CUSTOMER");
         Set<Role> tempRoles = account.getRoles();
-        String userType = signupRequest.getUserType();
+        tempRoles.add(role);
+        account.setRoles(tempRoles);
 
-        if ("instructor".equalsIgnoreCase(userType)) {
-            Role instructorRole = new Role(3, "ROLE_INSTRUCTOR");
-            tempRoles.add(instructorRole);
-            account.setRoles(tempRoles);
+        Customer customerLimit = customerService.customerLimit();
+        signupRequest.setCode(ConverterMaxCode.generateNextId(customerLimit.getCustomerCode()));
 
-            Instructor instructorLimit = instructorService.instructorLimit();
-            signupRequest.setCode(ConverterMaxCode.generateNextId(instructorLimit.getInstructorCode()));
+        Cart cart = new Cart();
+        cart.setReceiverName(signupRequest.getName());
+        cart.setReceiverAddress(signupRequest.getAddress());
+        cart.setReceiverPhone(signupRequest.getPhone());
+        cart.setReceiverEmail(signupRequest.getEmail());
+        cartService.save(cart);
 
-            instructorService.save(new Instructor(
-                    signupRequest.getCode(),
-                    signupRequest.getName(),
-                    signupRequest.getEmail(),
-                    signupRequest.getPhone(),
-                    signupRequest.getGender(),
-                    signupRequest.getDateOfBirth(),
-                    signupRequest.getAddress(),
-                    true,
-                    account
-            ));
-        } else {
-            Role customerRole = new Role(2, "ROLE_CUSTOMER");
-            tempRoles.add(customerRole);
-            account.setRoles(tempRoles);
-
-            Customer customerLimit = customerService.customerLimit();
-            signupRequest.setCode(ConverterMaxCode.generateNextId(customerLimit.getCustomerCode()));
-
-            customerService.save(new Customer(
-                    signupRequest.getCode(),
-                    signupRequest.getName(),
-                    signupRequest.getEmail(),
-                    signupRequest.getPhone(),
-                    signupRequest.getGender(),
-                    signupRequest.getDateOfBirth(),
-                    signupRequest.getAddress(),
-                    true,
-                    account
-            ));
-        }
+        customerService.save(new Customer(
+                signupRequest.getCode(),
+                signupRequest.getName(),
+                signupRequest.getEmail(),
+                signupRequest.getPhone(),
+                signupRequest.getGender(),
+                signupRequest.getDateOfBirth(),
+                signupRequest.getAddress(),
+                true,
+                account,
+                cart
+        ));
 
         return new ResponseEntity<>(new MessageResponse("Account registration successful!"), HttpStatus.OK);
     }

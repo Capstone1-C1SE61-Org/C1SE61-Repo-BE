@@ -44,7 +44,7 @@ public class Customer {
 
     public Customer(String customerCode, String customerName, String customerEmail, String customerPhone,
                     Boolean customerGender, Date dateOfBirth, String customerAddress, Boolean isEnable,
-                    Account account) {
+                    Account account, Cart cart) {
         this.customerCode = customerCode;
         this.customerName = customerName;
         this.customerEmail = customerEmail;
@@ -54,5 +54,6 @@ public class Customer {
         this.customerAddress = customerAddress;
         this.isEnable = isEnable;
         this.account = account;
+        this.cart = cart;
     }
 }

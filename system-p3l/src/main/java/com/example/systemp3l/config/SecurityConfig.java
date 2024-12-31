@@ -57,8 +57,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/api/v1/payment/**",
                         "/api/v1/cart/**")
                 .permitAll()
-                .antMatchers("/api/v1/customer/**").hasAnyRole("CUSTOMER", "ADMIN", "INSTRUCTOR")
+                .antMatchers("/api/v1/lessons/**",
+                        "/api/v1/customer/**").hasAnyRole("CUSTOMER", "ADMIN", "INSTRUCTOR")
                 .antMatchers("/api/v1/instructor/**").hasAnyRole("ADMIN", "INSTRUCTOR")
+                .antMatchers("/api/v1/account/**").hasAnyRole("ADMIN")
                 .anyRequest()
                 .authenticated()
                 .and()
