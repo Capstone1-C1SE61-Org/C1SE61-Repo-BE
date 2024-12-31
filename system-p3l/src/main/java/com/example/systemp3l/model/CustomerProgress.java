@@ -5,27 +5,27 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Date;
 
+@Entity
 @Setter
 @Getter
 @RequiredArgsConstructor
-@Entity
-public class Lesson {
+public class CustomerProgress {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer lessonId;
-    private String lessonName;
-    @Column(name = "lesson_content", length = 2000)
-    private String lessonContent;
-    @Column(name = "video", length = 2000)
-    private String video;
-    private String lessonDuration;
+    private Integer progressId;
+    private Boolean progressStatus;
+    private Date lastAccessed;
+    private Integer completedLessons;
+    private Integer totalLesson;
+    private Integer progressPercentage;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "course_id")
     private Course course;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "test_id")
-    private Test test;
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
 }

@@ -5,27 +5,23 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
+@Entity
 @Setter
 @Getter
 @RequiredArgsConstructor
-@Entity
-@Table(name = "comments")
-public class Comment {
+public class CustomerTestResult {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer commentId;
-    @Column(length = Integer.MAX_VALUE)
-    private String content;
-    private LocalDateTime createDate;
-    private LocalDateTime updateDate;
+    private Integer resultId;
+    private Integer score;
+    private Boolean isPassed;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "post_id")
-    private Post post;
+    @JoinColumn(name = "test_id")
+    private Test test;
 }

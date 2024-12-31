@@ -5,24 +5,25 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.sql.Date;
 
+@Entity
 @Setter
 @Getter
 @RequiredArgsConstructor
-@Entity
-@Table(name = "posts")
-public class Post {
+public class Enrollments {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer postId;
-    private String postTitle;
-    @Column(length = Integer.MAX_VALUE)
-    private String content;
-    private LocalDateTime createDate;
-    private LocalDateTime updateDate;
+    private Integer enrollmentId;
+    private Date enrollmentDay;
+    private Boolean status;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "customer_id")
     private Customer customer;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "course_id")
+    private Course course;
 }

@@ -32,7 +32,6 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1/public")
-@CrossOrigin(origins = {"*", "http://172.26.108.42:3000"}, allowedHeaders = "")
 public class SecurityController {
 
     @Autowired
@@ -112,7 +111,6 @@ public class SecurityController {
                     signupRequest.getPhone(),
                     signupRequest.getGender(),
                     signupRequest.getDateOfBirth(),
-                    signupRequest.getIdCard(),
                     signupRequest.getAddress(),
                     true,
                     account
@@ -132,7 +130,6 @@ public class SecurityController {
                     signupRequest.getPhone(),
                     signupRequest.getGender(),
                     signupRequest.getDateOfBirth(),
-                    signupRequest.getIdCard(),
                     signupRequest.getAddress(),
                     true,
                     account
