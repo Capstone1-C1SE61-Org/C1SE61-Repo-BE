@@ -12,7 +12,6 @@ public class AccountServiceImpl implements IAccountService {
     @Autowired
     private IAccountRepository accountRepository;
 
-
     @Override
     public Boolean existsByUsername(String username) {
         return accountRepository.existsByUsername(username);
