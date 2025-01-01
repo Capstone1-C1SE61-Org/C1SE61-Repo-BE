@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -28,5 +29,20 @@ public class LessonServiceImpl implements ILessonService {
                         lesson.getVideo(),
                         lesson.getLessonDuration()
                 )).collect(Collectors.toList());
+    }
+
+    @Override
+    public LessonDTO getLessonById(Integer lessonId) {
+        Lesson lesson = lessonRepository.findByLessonId(lessonId);
+        if (lesson == null) {
+            return null;
+        }
+        return new LessonDTO(
+                lesson.getLessonId(),
+                lesson.getLessonName(),
+                lesson.getLessonContent(),
+                lesson.getVideo(),
+                lesson.getLessonDuration()
+        );
     }
 }

@@ -8,4 +8,6 @@ public interface IAccountService {
     Boolean existsByEmail(String email);
 
     Account save(Account account);
+
+    void changePassword(String username, String newPass);
 }

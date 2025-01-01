@@ -6,4 +6,7 @@ import java.util.List;
 
 public interface ILessonService {
     List<LessonDTO> getLessonsByCourseId(Integer courseId);
+
+    LessonDTO getLessonById(Integer lessonId);
+
 }

@@ -26,4 +26,9 @@ public class AccountServiceImpl implements IAccountService {
     public Account save(Account account) {
         return accountRepository.save(account);
     }
+
+    @Override
+    public void changePassword(String username, String newPass) {
+        accountRepository.changePassword(username, newPass);
+    }
 }
