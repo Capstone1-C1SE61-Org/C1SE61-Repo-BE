@@ -6,7 +6,7 @@ import com.example.systemp3l.model.Course;
 import java.util.List;
 
 public interface ICourseService {
-    List<CourseDTO> findAll();
+    List<Course> findAll();
 
     void save(Course course);
 
