@@ -19,7 +19,6 @@ public class CustomerUserDetailDto {
     Date dateOfBirth;
     String customerAddress;
     String customerImg;
-    String customerTypeName;
     String username;
     String accountEmail;
 
@@ -33,7 +32,6 @@ public class CustomerUserDetailDto {
                 tuple.get("date_of_birth", Date.class),
                 tuple.get("customer_address", String.class),
                 tuple.get("customer_img", String.class),
-                tuple.get("customer_type_name", String.class),
                 tuple.get("username", String.class),
                 tuple.get("email", String.class)
         );

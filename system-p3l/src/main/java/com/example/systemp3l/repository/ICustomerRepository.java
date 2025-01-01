@@ -18,7 +18,7 @@ public interface ICustomerRepository extends JpaRepository<Customer, Integer> {
     Customer limitCustomer();
 
     @Query(value = "select c.customer_id, c.customer_code, c.customer_name, c.customer_phone, c.customer_gender, " +
-            "c.date_of_birth, c.customer_address, c.customer_img, c.customer_type_name, a.username, a.email " +
+            "c.date_of_birth, c.customer_address, c.customer_img, a.username, a.email " +
             "from customer c " +
             "inner join account a on c.account_id = a.account_id " +
             "where (c.is_enable = true) and (a.is_enable = true) and (a.username = :username)", nativeQuery = true)
