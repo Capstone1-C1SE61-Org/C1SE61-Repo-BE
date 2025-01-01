@@ -1,5 +1,6 @@
 package com.example.systemp3l.controller;
 
+import com.example.systemp3l.dto.request.ChangePasswordDto;
 import com.example.systemp3l.dto.request.LoginRequest;
 import com.example.systemp3l.dto.request.SignupRequest;
 import com.example.systemp3l.dto.response.JwtResponse;
@@ -10,7 +11,6 @@ import com.example.systemp3l.security.userprinciple.UserPrinciple;
 import com.example.systemp3l.service.IAccountService;
 import com.example.systemp3l.service.ICartService;
 import com.example.systemp3l.service.ICustomerService;
-import com.example.systemp3l.service.IInstructorService;
 import com.example.systemp3l.utils.ConverterMaxCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,6 +20,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -120,5 +121,19 @@ public class SecurityController {
         ));
 
         return new ResponseEntity<>(new MessageResponse("Account registration successful!"), HttpStatus.OK);
+    }
+
+    @PatchMapping("/change-password")
+    public ResponseEntity<?> changePassword(@RequestBody ChangePasswordDto changePasswordDto) {
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(changePasswordDto.getUsername(), changePasswordDto.getPresentPassword()));
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        String newPass = encoder.encode(changePasswordDto.getConfirmPassword());
+        accountService.changePassword(username, newPass);
+        return new ResponseEntity<>(new ChangePasswordDto(
+                changePasswordDto.getUsername(),
+                "", ""), HttpStatus.OK);
     }
 }

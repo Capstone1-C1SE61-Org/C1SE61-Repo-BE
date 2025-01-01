@@ -2,6 +2,7 @@ package com.example.systemp3l.repository;
 
 import com.example.systemp3l.model.Account;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -22,4 +23,11 @@ public interface IAccountRepository extends JpaRepository<Account, Integer> {
     Boolean existsByUsername(String username);
 
     Boolean existsByEmail(String email);
+
+    @Modifying
+    @Query(value = "update `account` a set a.encrypt_password =:pass " +
+            "where (a.is_enable = true) and (username = :username) ",
+            nativeQuery = true)
+    void changePassword(@Param("username") String username,
+                        @Param("pass") String pass);
 }

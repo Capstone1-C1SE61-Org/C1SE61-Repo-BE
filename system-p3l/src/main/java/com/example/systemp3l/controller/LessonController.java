@@ -27,4 +27,13 @@ public class LessonController {
         }
         return new ResponseEntity<>(lessons, HttpStatus.OK);
     }
+
+    @GetMapping("/{lessonId}")
+    public ResponseEntity<LessonDTO> getLessonById(@PathVariable("lessonId") Integer lessonId) {
+        LessonDTO lesson = lessonService.getLessonById(lessonId);
+        if (lesson == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(lesson, HttpStatus.OK);
+    }
 }
