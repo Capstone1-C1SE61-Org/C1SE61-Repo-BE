@@ -37,8 +37,8 @@ public class CourseController {
     private IPaymentService paymentService;
 
     @GetMapping("")
-    public ResponseEntity<List<CourseDTO>> getAllCourse() {
-        List<CourseDTO> courseList = courseService.findAll();
+    public ResponseEntity<List<Course>> getAllCourse() {
+        List<Course> courseList = courseService.findAll();
         if (courseList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }

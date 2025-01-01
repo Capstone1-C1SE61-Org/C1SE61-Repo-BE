@@ -30,18 +30,8 @@ public class CourseServiceImpl implements ICourseService {
     private IInstructorRepository instructorRepository;
 
     @Override
-    public List<CourseDTO> findAll() {
-        List<Course> courses = courseRepository.findAll();
-        return courses.stream().map(course -> new CourseDTO(
-                course.getCourseId(),
-                course.getCourseName(),
-                course.getCoursePrice(),
-                course.getImage(),
-                course.getStatus(),
-                course.getCreateDate(),
-                course.getUpdateDate(),
-                course.getInstructor().getInstructorId()
-        )).collect(Collectors.toList());
+    public List<Course> findAll() {
+        return courseRepository.findAll();
     }
 
     @Override
