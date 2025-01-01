@@ -85,7 +85,8 @@ public class CustomerController {
     }
 
     @PutMapping("/edit/{id}")
-    public ResponseEntity<?> updateCustomer(@Valid @PathVariable Integer id, @RequestBody CustomerInfo customerInfo, BindingResult bindingResult) {
+    public ResponseEntity<?> updateCustomer(@Valid @PathVariable Integer id, @RequestBody CustomerInfo customerInfo,
+                                            BindingResult bindingResult) {
         new CustomerInfo().validate(customerInfo, bindingResult);
 
         if (bindingResult.hasErrors()) {
